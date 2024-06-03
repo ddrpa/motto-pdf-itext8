@@ -37,11 +37,18 @@ public class DocumentBuilder {
     private PdfDocument pdfDocument;
     private PdfAcroForm pdfAcroForm;
 
+    /**
+     * @param outputStream 生成文件输出流
+     */
     public DocumentBuilder(OutputStream outputStream) {
         this.outputStream = outputStream;
         this.mottoFontAgent = new MottoFontAgent();
     }
 
+    /**
+     * @param outputStream   生成文件输出流
+     * @param mottoFontAgent 自定义字体代理
+     */
     public DocumentBuilder(OutputStream outputStream, MottoFontAgent mottoFontAgent) {
         this.outputStream = outputStream;
         this.mottoFontAgent = mottoFontAgent;
@@ -78,7 +85,7 @@ public class DocumentBuilder {
     /**
      * 从输入流中加载模板
      *
-     * @param inputStream
+     * @param inputStream 模板输入流
      * @throws IOException
      */
     public DocumentBuilder loadTemplate(InputStream inputStream) throws IOException {
@@ -92,11 +99,11 @@ public class DocumentBuilder {
      * @param dataMap         需要填充的数据
      * @param reduceImageSize 是否需要压缩图片尺寸
      */
-    public void merge(Map<String, Object> dataMap, boolean reduceImageSize) {
+    public DocumentBuilder merge(Map<String, Object> dataMap, boolean reduceImageSize) {
         if (Objects.isNull(pdfAcroForm)) {
             pdfAcroForm = PdfFormCreator.getAcroForm(pdfDocument, false);
             if (Objects.isNull(pdfAcroForm)) {
-                return;
+                return this;
             }
         }
         // tells flattenFields() to generate an appearance Stream for all form fields that don't have one.
@@ -175,6 +182,7 @@ public class DocumentBuilder {
             }
             field.regenerateField();
         }
+        return this;
     }
 
     /**
@@ -204,7 +212,7 @@ public class DocumentBuilder {
      * @param before       待缩放的 BufferedImage
      * @param targetWidth  目标宽度
      * @param targetHeight 目标高度
-     * @return
+     * @return 缩放后的 BufferedImage 实例
      * @see <a href="https://stackoverflow.com/a/4216635">How to scale a BufferedImage</a>
      */
     private BufferedImage scaleImage(BufferedImage before, int targetWidth, int targetHeight) {

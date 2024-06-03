@@ -46,22 +46,22 @@ public class DocumentBuildTests {
             FileOutputStream fos = new FileOutputStream("target/merged.pdf")) {
             BufferedImage avatarImage = ImageIO.read(new File("src/test/resources/avatar.jpeg"));
             DocumentBuilder builder = new DocumentBuilder(fos, new MottoFontAgent());
-            builder.loadTemplate(fis);
-            builder.merge(
-                Map.of("Name", faker.name().firstName() + "·" + randomFamilyName(),
-                    "IDCardNum", faker.idNumber().ssnValid(),
-                    "Type", "吃瓜群众",
-                    // load avatar by BufferedImage
-                    "avatar", avatarImage,
-                    // load huge image by file path
-                    "LARGE_PHOTO", "src/test/resources/large-photo.jpeg",
-                    // 单选效果展示
-                    "Group1", "Choice3",
-                    // 复选框效果展示
-                    "CheckBoxRow1", false,
-                    "CheckBoxRow2", "True"),
-                true);
-            builder.save(true);
+            builder.loadTemplate(fis)
+                .merge(
+                    Map.of("Name", faker.name().firstName() + "·" + randomFamilyName(),
+                        "IDCardNum", faker.idNumber().ssnValid(),
+                        "Type", "吃瓜群众",
+                        // load avatar by BufferedImage
+                        "avatar", avatarImage,
+                        // load huge image by file path
+                        "LARGE_PHOTO", "src/test/resources/large-photo.jpeg",
+                        // 单选效果展示
+                        "Group1", "Choice3",
+                        // 复选框效果展示
+                        "CheckBoxRow1", false,
+                        "CheckBoxRow2", "True"),
+                    true)
+                .save(true);
         }
     }
 }

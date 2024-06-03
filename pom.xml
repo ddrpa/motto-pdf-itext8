@@ -10,8 +10,7 @@
   <version>1.0.0</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
-  <!-- FIXME change it to the project's description -->
-  <description></description>
+  <description>motto-pdf-itext8 设计用来填充 PDF 文件中的 AcroForm</description>
   <url>https://github.com/ddrpa/motto-pdf-itext8</url>
 
   <licenses>
