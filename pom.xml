@@ -66,6 +66,7 @@
       <groupId>com.itextpdf</groupId>
       <artifactId>itext-core</artifactId>
       <version>${itext.version}</version>
+      <type>pom</type>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
     <dependency>
