@@ -28,6 +28,10 @@ motto-pdf-itext8 支持 text field，checkbox，radio button 和 image field。
 静态方法 `cc.ddrpa.motto.pdf.itext.MottoFontAgent#addFont` 接收文件路径注册字体。TrueType® font
 collection 文件可通过 `,$FONT_INDEX` 后缀注册集合中指定的字体，规则和 motto-html 是一样的。
 
+```
+MottoFontAgent.addFont("font-seems-okay/Noto_Sans_SC/static/NotoSansSC-Regular.ttf");
+```
+
 在填充表单的文本内容时，MottoFontAgent 首先会检查 Text Field 声明的字体族是否被注册过，如果没有则会根据要填充的内容自动选择一种字体。
 
 ### 怎样填充表单
@@ -43,10 +47,6 @@ collection 文件可通过 `,$FONT_INDEX` 后缀注册集合中指定的字体�
     - Image Field 可以使用 `java.awt.image.BufferedImage` 或 `byte[]`，字符串会被视为图片文件的路径，其他类型不会被处理
 4. `merge` 方法可以被反复调用，但是基于性能考虑，不建议这么做；
 5. 通过 `save` 方法保存输出文件；
-
-`DocumentBuilder` 目前是一次性的，如果你需要批量生成文件，需要从创建 DocumentBuilder 实例重新开始。
-
-## 效果示例
 
 ```
 try(FileInputStream fis = new FileInputStream("src/test/resources/lorem.pdf");
@@ -69,9 +69,12 @@ try(FileInputStream fis = new FileInputStream("src/test/resources/lorem.pdf");
       .save();
 ```
 
+`DocumentBuilder` 目前是一次性的，如果你需要批量生成文件，需要从创建 DocumentBuilder 实例重新开始。
+
+## 效果示例
+
 ![showcase](showcase.png)
 
 我先使用 Microsoft Word 创建了表格，然后在 Adobe Acrobat Pro 中添加了
 AcroForm。这个表格包含了文本框、复选框、单选框和图片。备注一栏照片摄于 [智慧新城草坪公园，衢州市，浙江省，中国](https://j.map.baidu.com/60/weMJ)
-，照片体积为
-15.6MB，生成 PDF 时图片经过了压缩，PDF 文件体积为 143KB。
+，原始照片体积为 15.6MB，生成 PDF 时图片经过了压缩，PDF 文件体积为 143KB。
